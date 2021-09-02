@@ -23,13 +23,15 @@ func init() {
 // Create and run API server
 func main() {
 	flag.Parse()
-	config := apiserver.NewConfig()
+
+	var config *apiserver.Config = apiserver.NewConfig()
 
 	_, err := toml.DecodeFile(configPath, config)
 	if err != nil {
 		log.Fatal(err)
 	}
-	s := apiserver.New(config)
+	var s *apiserver.APIServer = apiserver.New(config)
+
 	if err := s.Start(); err != nil {
 		log.Fatal(err)
 	}
